@@ -520,7 +520,7 @@ Let’s add some rules:
 *   A string argument with a space must be between double quote
 *   The error management starts from the first argument to the last one  
     
-
+    ```
     efuraimuJS@ubuntu:~/AirBnB$ ./console.py
     (hbnb) all MyModel
     ** class doesn't exist **
@@ -546,7 +546,8 @@ Let’s add some rules:
     (hbnb) destroy BaseModel 49faff9a-6318-451f-87b6-910505c55907
     (hbnb) show BaseModel 49faff9a-6318-451f-87b6-910505c55907
     ** no instance found **
-    (hbnb) 
+    (hbnb)
+    ```
     
 
 **No unittests needed**
