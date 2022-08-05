@@ -8,7 +8,7 @@ _For this project, we expect you to look at these concepts:_
 *   [Python packages](/concepts/66)
 *   [AirBnB clone](/concepts/74)
 
-![](https://s3.amazonaws.com/alx-intranet.hbtn.io/uploads/medias/2018/6/65f4a1dd9c51265f49d0.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIARDDGGGOUSBVO6H7D%2F20220805%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20220805T155732Z&X-Amz-Expires=86400&X-Amz-SignedHeaders=host&X-Amz-Signature=1697853781617a86e787a5e81c92e8c34fd806f4baf4262dc0bcf65bbacb7532)
+![](https://i.imgur.com/yxnK1zt.png)
 
 Background Context
 ------------------
@@ -162,7 +162,7 @@ But also in non-interactive mode: (like the Shell project in C)
 
 All tests should also pass in non-interactive mode: `$ echo "python3 -m unittest discover tests" | bash`
 
-![](https://s3.amazonaws.com/alx-intranet.hbtn.io/uploads/medias/2018/6/815046647d23428a14ca.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIARDDGGGOUSBVO6H7D%2F20220805%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20220805T155732Z&X-Amz-Expires=86400&X-Amz-SignedHeaders=host&X-Amz-Signature=e9f95cc13dd8ad0db266ae0694be51eb71e577796c8055f0f1e5ea740d164846)
+![](https://i.imgur.com/i4F5vSP.png)
 
   
 
