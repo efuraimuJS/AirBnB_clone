@@ -201,8 +201,8 @@ Write a class `BaseModel` that defines all common attributes/methods for other c
             *   you can use `isoformat()` of `datetime` object
         *   This method will be the first piece of the serialization/deserialization process: create a dictionary representation with “simple object type” of our `BaseModel`
 
-    
-	efuraimuJS@ubuntu:~/AirBnB$ cat test_base_model.py
+    ```
+    efuraimuJS@ubuntu:~/AirBnB$ cat test_base_model.py
     #!/usr/bin/python3
     from models.base_model import BaseModel
    
@@ -228,8 +228,8 @@ Write a class `BaseModel` that defines all common attributes/methods for other c
             updated_at: (<class 'str'>) - 2017-09-28T21:05:54.119572
             id: (<class 'str'>) - b6a6e15c-c67d-4312-9a75-9d084935e579
             created_at: (<class 'str'>) - 2017-09-28T21:05:54.119427
-            efuraimuJS@ubuntu:~/AirBnB$
-    
+    efuraimuJS@ubuntu:~/AirBnB$
+    ```
 
 **Repo:**
 
