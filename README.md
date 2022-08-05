@@ -46,7 +46,7 @@ Do you remember the Shell? It’s exactly the same but limited to a specific use
 Resources
 ---------
 
-**Read or watch**:
+**Read or watch**:BaseModel
 
 *   [cmd module](/rltoken/8ecCwE6veBmm3Nppw4hz5A "cmd module")
 *   **packages** concept page
@@ -262,10 +262,11 @@ Write a class `BaseModel` that defines all common attributes/methods for other c
             *   you can use `isoformat()` of `datetime` object
         *   This method will be the first piece of the serialization/deserialization process: create a dictionary representation with “simple object type” of our `BaseModel`
 
-    efuraimuJS@ubuntu:~/AirBnB$ cat test_base_model.py
+    
+	efuraimuJS@ubuntu:~/AirBnB$ cat test_base_model.py
     #!/usr/bin/python3
     from models.base_model import BaseModel
-    
+   
     my_model = BaseModel()
     my_model.name = "My First Model"
     my_model.my_number = 89
@@ -276,21 +277,19 @@ Write a class `BaseModel` that defines all common attributes/methods for other c
     print(my_model_json)
     print("JSON of my_model:")
     for key in my_model_json.keys():
-        print("\t{}: ({}) - {}".format(key, type(my_model_json[key]), my_model_json[key]))
-    
+    print("\t{}: ({}) - {}".format(key, type(my_model_json[key]),                     my_model_json[key]))
     efuraimuJS@ubuntu:~/AirBnB$ ./test_base_model.py
-    [BaseModel] (b6a6e15c-c67d-4312-9a75-9d084935e579) {'my_number': 89, 'name': 'My First Model', 'updated_at': datetime.datetime(2017, 9, 28, 21, 5, 54, 119434), 'id': 'b6a6e15c-c67d-4312-9a75-9d084935e579', 'created_at': datetime.datetime(2017, 9, 28, 21, 5, 54, 119427)}
-    [BaseModel] (b6a6e15c-c67d-4312-9a75-9d084935e579) {'my_number': 89, 'name': 'My First Model', 'updated_at': datetime.datetime(2017, 9, 28, 21, 5, 54, 119572), 'id': 'b6a6e15c-c67d-4312-9a75-9d084935e579', 'created_at': datetime.datetime(2017, 9, 28, 21, 5, 54, 119427)}
-    {'my_number': 89, 'name': 'My First Model', '__class__': 'BaseModel', 'updated_at': '2017-09-28T21:05:54.119572', 'id': 'b6a6e15c-c67d-4312-9a75-9d084935e579', 'created_at': '2017-09-28T21:05:54.119427'}
-    JSON of my_model:
-        my_number: (<class 'int'>) - 89
-        name: (<class 'str'>) - My First Model
-        __class__: (<class 'str'>) - BaseModel
-        updated_at: (<class 'str'>) - 2017-09-28T21:05:54.119572
-        id: (<class 'str'>) - b6a6e15c-c67d-4312-9a75-9d084935e579
-        created_at: (<class 'str'>) - 2017-09-28T21:05:54.119427
-    
-    efuraimuJS@ubuntu:~/AirBnB$ 
+        [BaseModel] (b6a6e15c-c67d-4312-9a75-9d084935e579) {'my_number': 89, 'name':         'My First Model', 'updated_at': datetime.datetime(2017, 9, 28, 21, 5, 54,     119434), 'id': 'b6a6e15c-c67d-4312-9a75-9d084935e579', 'created_at': datetime.datetime    (2017, 9, 28, 21, 5, 54, 119427)}
+        [BaseModel] (b6a6e15c-c67d-4312-9a75-9d084935e579) {'my_number': 89, 'name':     'My First Model', 'updated_at': datetime.datetime(2017, 9, 28, 21, 5, 54, 119572),     'id': 'b6a6e15c-c67d-4312-9a75-9d084935e579', 'created_at': datetime.datetime(2017    , 9, 28, 21, 5, 54, 119427)}
+        {'my_number': 89, 'name': 'My First Model', '__class__': 'BaseModel',     'updated_at': '2017-09-28T21:05:54.119572', 'id': 'b6a6e15c-c67d-4312-9a75-9d084935e579', 'created_at': '2017-09-28T21:05:54.119427'}
+        JSON of my_model:
+            my_number: (<class 'int'>) - 89
+            name: (<class 'str'>) - My First Model
+            __class__: (<class 'str'>) - BaseModel
+            updated_at: (<class 'str'>) - 2017-09-28T21:05:54.119572
+            id: (<class 'str'>) - b6a6e15c-c67d-4312-9a75-9d084935e579
+            created_at: (<class 'str'>) - 2017-09-28T21:05:54.119427
+            efuraimuJS@ubuntu:~/AirBnB$
     
 
 **Repo:**
@@ -322,53 +321,54 @@ Update `models/base_model.py`:
     *   otherwise:
         *   create `id` and `created_at` as you did previously (new instance)
 
-    efuraimuJS@ubuntu:~/AirBnB$ cat test_base_model_dict.py
-    #!/usr/bin/python3
-    from models.base_model import BaseModel
-    
-    my_model = BaseModel()
-    my_model.name = "My_First_Model"
-    my_model.my_number = 89
-    print(my_model.id)
-    print(my_model)
-    print(type(my_model.created_at))
-    print("--")
-    my_model_json = my_model.to_dict()
-    print(my_model_json)
-    print("JSON of my_model:")
-    for key in my_model_json.keys():
-        print("\t{}: ({}) - {}".format(key, type(my_model_json[key]), my_model_json[key]))
-    
-    print("--")
-    my_new_model = BaseModel(**my_model_json)
-    print(my_new_model.id)
-    print(my_new_model)
-    print(type(my_new_model.created_at))
-    
-    print("--")
-    print(my_model is my_new_model)
-    
-    efuraimuJS@ubuntu:~/AirBnB$ ./test_base_model_dict.py
-    56d43177-cc5f-4d6c-a0c1-e167f8c27337
-    [BaseModel] (56d43177-cc5f-4d6c-a0c1-e167f8c27337) {'id': '56d43177-cc5f-4d6c-a0c1-e167f8c27337', 'created_at': datetime.datetime(2017, 9, 28, 21, 3, 54, 52298), 'my_number': 89, 'updated_at': datetime.datetime(2017, 9, 28, 21, 3, 54, 52302), 'name': 'My_First_Model'}
-    <class 'datetime.datetime'>
-    --
-    {'id': '56d43177-cc5f-4d6c-a0c1-e167f8c27337', 'created_at': '2017-09-28T21:03:54.052298', '__class__': 'BaseModel', 'my_number': 89, 'updated_at': '2017-09-28T21:03:54.052302', 'name': 'My_First_Model'}
-    JSON of my_model:
-        id: (<class 'str'>) - 56d43177-cc5f-4d6c-a0c1-e167f8c27337
-        created_at: (<class 'str'>) - 2017-09-28T21:03:54.052298
-        __class__: (<class 'str'>) - BaseModel
-        my_number: (<class 'int'>) - 89
-        updated_at: (<class 'str'>) - 2017-09-28T21:03:54.052302
-        name: (<class 'str'>) - My_First_Model
-    --
-    56d43177-cc5f-4d6c-a0c1-e167f8c27337
-    [BaseModel] (56d43177-cc5f-4d6c-a0c1-e167f8c27337) {'id': '56d43177-cc5f-4d6c-a0c1-e167f8c27337', 'created_at': datetime.datetime(2017, 9, 28, 21, 3, 54, 52298), 'my_number': 89, 'updated_at': datetime.datetime(2017, 9, 28, 21, 3, 54, 52302), 'name': 'My_First_Model'}
-    <class 'datetime.datetime'>
-    --
-    False
-    efuraimuJS@ubuntu:~/AirBnB$ 
-    
+```
+        efuraimuJS@ubuntu:~/AirBnB$ cat test_base_model_dict.py
+        #!/usr/bin/python3
+        from models.base_model import BaseModel
+        
+        my_model = BaseModel()
+        my_model.name = "My_First_Model"
+        my_model.my_number = 89
+        print(my_model.id)
+        print(my_model)
+        print(type(my_model.created_at))
+        print("--")
+        my_model_json = my_model.to_dict()
+        print(my_model_json)
+        print("JSON of my_model:")
+        for key in my_model_json.keys():
+            print("\t{}: ({}) - {}".format(key, type(my_model_json[key]), my_model_json[key]))
+        
+        print("--")
+        my_new_model = BaseModel(**my_model_json)
+        print(my_new_model.id)
+        print(my_new_model)
+        print(type(my_new_model.created_at))
+        
+        print("--")
+        print(my_model is my_new_model)
+        
+        efuraimuJS@ubuntu:~/AirBnB$ ./test_base_model_dict.py
+        56d43177-cc5f-4d6c-a0c1-e167f8c27337
+        [BaseModel] (56d43177-cc5f-4d6c-a0c1-e167f8c27337) {'id': '56d43177-cc5f-4d6c-a0c1-e167f8c27337', 'created_at': datetime.datetime(2017, 9, 28, 21, 3, 54, 52298), 'my_number': 89, 'updated_at': datetime.datetime(2017, 9, 28, 21, 3, 54, 52302), 'name': 'My_First_Model'}
+        <class 'datetime.datetime'>
+        --
+        {'id': '56d43177-cc5f-4d6c-a0c1-e167f8c27337', 'created_at': '2017-09-28T21:03:54.052298', '__class__': 'BaseModel', 'my_number': 89, 'updated_at': '2017-09-28T21:03:54.052302', 'name': 'My_First_Model'}
+        JSON of my_model:
+            id: (<class 'str'>) - 56d43177-cc5f-4d6c-a0c1-e167f8c27337
+            created_at: (<class 'str'>) - 2017-09-28T21:03:54.052298
+            __class__: (<class 'str'>) - BaseModel
+            my_number: (<class 'int'>) - 89
+            updated_at: (<class 'str'>) - 2017-09-28T21:03:54.052302
+            name: (<class 'str'>) - My_First_Model
+        --
+        56d43177-cc5f-4d6c-a0c1-e167f8c27337
+        [BaseModel] (56d43177-cc5f-4d6c-a0c1-e167f8c27337) {'id': '56d43177-cc5f-4d6c-a0c1-e167f8c27337', 'created_at': datetime.datetime(2017, 9, 28, 21, 3, 54, 52298), 'my_number': 89, 'updated_at': datetime.datetime(2017, 9, 28, 21, 3, 54, 52302), 'name': 'My_First_Model'}
+        <class 'datetime.datetime'>
+        --
+        False
+        efuraimuJS@ubuntu:~/AirBnB$ 
+```   
 
 **Repo:**
 
@@ -432,53 +432,54 @@ Update `models/base_model.py`: to link your `BaseModel` to `FileStorage` by usin
     *   call `save(self)` method of `storage`
 *   `__init__(self, *args, **kwargs)`:
     *   if it’s a new instance (not from a dictionary representation), add a call to the method `new(self)` on `storage`
-
-    efuraimuJS@ubuntu:~/AirBnB$ cat test_save_reload_base_model.py
-    #!/usr/bin/python3
-    from models import storage
-    from models.base_model import BaseModel
-    
-    all_objs = storage.all()
-    print("-- Reloaded objects --")
-    for obj_id in all_objs.keys():
-        obj = all_objs[obj_id]
-        print(obj)
-    
-    print("-- Create a new object --")
-    my_model = BaseModel()
-    my_model.name = "My_First_Model"
-    my_model.my_number = 89
-    my_model.save()
-    print(my_model)
-    
-    efuraimuJS@ubuntu:~/AirBnB$ cat file.json
-    cat: file.json: No such file or directory
-    efuraimuJS@ubuntu:~/AirBnB$ 
-    efuraimuJS@ubuntu:~/AirBnB$ ./test_save_reload_base_model.py
-    -- Reloaded objects --
-    -- Create a new object --
-    [BaseModel] (ee49c413-023a-4b49-bd28-f2936c95460d) {'my_number': 89, 'updated_at': datetime.datetime(2017, 9, 28, 21, 7, 25, 47381), 'created_at': datetime.datetime(2017, 9, 28, 21, 7, 25, 47372), 'name': 'My_First_Model', 'id': 'ee49c413-023a-4b49-bd28-f2936c95460d'}
-    efuraimuJS@ubuntu:~/AirBnB$ 
-    efuraimuJS@ubuntu:~/AirBnB$ cat file.json ; echo ""
-    {"BaseModel.ee49c413-023a-4b49-bd28-f2936c95460d": {"my_number": 89, "__class__": "BaseModel", "updated_at": "2017-09-28T21:07:25.047381", "created_at": "2017-09-28T21:07:25.047372", "name": "My_First_Model", "id": "ee49c413-023a-4b49-bd28-f2936c95460d"}}
-    efuraimuJS@ubuntu:~/AirBnB$
-    efuraimuJS@ubuntu:~/AirBnB$ ./test_save_reload_base_model.py
-    -- Reloaded objects --
-    [BaseModel] (ee49c413-023a-4b49-bd28-f2936c95460d) {'name': 'My_First_Model', 'id': 'ee49c413-023a-4b49-bd28-f2936c95460d', 'updated_at': datetime.datetime(2017, 9, 28, 21, 7, 25, 47381), 'my_number': 89, 'created_at': datetime.datetime(2017, 9, 28, 21, 7, 25, 47372)}
-    -- Create a new object --
-    [BaseModel] (080cce84-c574-4230-b82a-9acb74ad5e8c) {'name': 'My_First_Model', 'id': '080cce84-c574-4230-b82a-9acb74ad5e8c', 'updated_at': datetime.datetime(2017, 9, 28, 21, 7, 51, 973308), 'my_number': 89, 'created_at': datetime.datetime(2017, 9, 28, 21, 7, 51, 973301)}
-    efuraimuJS@ubuntu:~/AirBnB$ 
-    efuraimuJS@ubuntu:~/AirBnB$ ./test_save_reload_base_model.py
-    -- Reloaded objects --
-    [BaseModel] (080cce84-c574-4230-b82a-9acb74ad5e8c) {'id': '080cce84-c574-4230-b82a-9acb74ad5e8c', 'updated_at': datetime.datetime(2017, 9, 28, 21, 7, 51, 973308), 'created_at': datetime.datetime(2017, 9, 28, 21, 7, 51, 973301), 'name': 'My_First_Model', 'my_number': 89}
-    [BaseModel] (ee49c413-023a-4b49-bd28-f2936c95460d) {'id': 'ee49c413-023a-4b49-bd28-f2936c95460d', 'updated_at': datetime.datetime(2017, 9, 28, 21, 7, 25, 47381), 'created_at': datetime.datetime(2017, 9, 28, 21, 7, 25, 47372), 'name': 'My_First_Model', 'my_number': 89}
-    -- Create a new object --
-    [BaseModel] (e79e744a-55d4-45a3-b74a-ca5fae74e0e2) {'id': 'e79e744a-55d4-45a3-b74a-ca5fae74e0e2', 'updated_at': datetime.datetime(2017, 9, 28, 21, 8, 6, 151750), 'created_at': datetime.datetime(2017, 9, 28, 21, 8, 6, 151711), 'name': 'My_First_Model', 'my_number': 89}
-    efuraimuJS@ubuntu:~/AirBnB$ 
-    efuraimuJS@ubuntu:~/AirBnB$ cat file.json ; echo ""
-    {"BaseModel.e79e744a-55d4-45a3-b74a-ca5fae74e0e2": {"__class__": "BaseModel", "id": "e79e744a-55d4-45a3-b74a-ca5fae74e0e2", "updated_at": "2017-09-28T21:08:06.151750", "created_at": "2017-09-28T21:08:06.151711", "name": "My_First_Model", "my_number": 89}, "BaseModel.080cce84-c574-4230-b82a-9acb74ad5e8c": {"__class__": "BaseModel", "id": "080cce84-c574-4230-b82a-9acb74ad5e8c", "updated_at": "2017-09-28T21:07:51.973308", "created_at": "2017-09-28T21:07:51.973301", "name": "My_First_Model", "my_number": 89}, "BaseModel.ee49c413-023a-4b49-bd28-f2936c95460d": {"__class__": "BaseModel", "id": "ee49c413-023a-4b49-bd28-f2936c95460d", "updated_at": "2017-09-28T21:07:25.047381", "created_at": "2017-09-28T21:07:25.047372", "name": "My_First_Model", "my_number": 89}}
-    efuraimuJS@ubuntu:~/AirBnB$ 
-    
+        
+        ```
+        efuraimuJS@ubuntu:~/AirBnB$ cat test_save_reload_base_model.py
+        #!/usr/bin/python3
+        from models import storage
+        from models.base_model import BaseModel
+        
+        all_objs = storage.all()
+        print("-- Reloaded objects --")
+        for obj_id in all_objs.keys():
+            obj = all_objs[obj_id]
+            print(obj)
+        
+        print("-- Create a new object --")
+        my_model = BaseModel()
+        my_model.name = "My_First_Model"
+        my_model.my_number = 89
+        my_model.save()
+        print(my_model)
+        
+        efuraimuJS@ubuntu:~/AirBnB$ cat file.json
+        cat: file.json: No such file or directory
+        efuraimuJS@ubuntu:~/AirBnB$ 
+        efuraimuJS@ubuntu:~/AirBnB$ ./test_save_reload_base_model.py
+        -- Reloaded objects --
+        -- Create a new object --
+        [BaseModel] (ee49c413-023a-4b49-bd28-f2936c95460d) {'my_number': 89, 'updated_at': datetime.datetime(2017, 9, 28, 21, 7, 25, 47381), 'created_at': datetime.datetime(2017, 9, 28, 21, 7, 25, 47372), 'name': 'My_First_Model', 'id': 'ee49c413-023a-4b49-bd28-f2936c95460d'}
+        efuraimuJS@ubuntu:~/AirBnB$ 
+        efuraimuJS@ubuntu:~/AirBnB$ cat file.json ; echo ""
+        {"BaseModel.ee49c413-023a-4b49-bd28-f2936c95460d": {"my_number": 89, "__class__": "BaseModel", "updated_at": "2017-09-28T21:07:25.047381", "created_at": "2017-09-28T21:07:25.047372", "name": "My_First_Model", "id": "ee49c413-023a-4b49-bd28-f2936c95460d"}}
+        efuraimuJS@ubuntu:~/AirBnB$
+        efuraimuJS@ubuntu:~/AirBnB$ ./test_save_reload_base_model.py
+        -- Reloaded objects --
+        [BaseModel] (ee49c413-023a-4b49-bd28-f2936c95460d) {'name': 'My_First_Model', 'id': 'ee49c413-023a-4b49-bd28-f2936c95460d', 'updated_at': datetime.datetime(2017, 9, 28, 21, 7, 25, 47381), 'my_number': 89, 'created_at': datetime.datetime(2017, 9, 28, 21, 7, 25, 47372)}
+        -- Create a new object --
+        [BaseModel] (080cce84-c574-4230-b82a-9acb74ad5e8c) {'name': 'My_First_Model', 'id': '080cce84-c574-4230-b82a-9acb74ad5e8c', 'updated_at': datetime.datetime(2017, 9, 28, 21, 7, 51, 973308), 'my_number': 89, 'created_at': datetime.datetime(2017, 9, 28, 21, 7, 51, 973301)}
+        efuraimuJS@ubuntu:~/AirBnB$ 
+        efuraimuJS@ubuntu:~/AirBnB$ ./test_save_reload_base_model.py
+        -- Reloaded objects --
+        [BaseModel] (080cce84-c574-4230-b82a-9acb74ad5e8c) {'id': '080cce84-c574-4230-b82a-9acb74ad5e8c', 'updated_at': datetime.datetime(2017, 9, 28, 21, 7, 51, 973308), 'created_at': datetime.datetime(2017, 9, 28, 21, 7, 51, 973301), 'name': 'My_First_Model', 'my_number': 89}
+        [BaseModel] (ee49c413-023a-4b49-bd28-f2936c95460d) {'id': 'ee49c413-023a-4b49-bd28-f2936c95460d', 'updated_at': datetime.datetime(2017, 9, 28, 21, 7, 25, 47381), 'created_at': datetime.datetime(2017, 9, 28, 21, 7, 25, 47372), 'name': 'My_First_Model', 'my_number': 89}
+        -- Create a new object --
+        [BaseModel] (e79e744a-55d4-45a3-b74a-ca5fae74e0e2) {'id': 'e79e744a-55d4-45a3-b74a-ca5fae74e0e2', 'updated_at': datetime.datetime(2017, 9, 28, 21, 8, 6, 151750), 'created_at': datetime.datetime(2017, 9, 28, 21, 8, 6, 151711), 'name': 'My_First_Model', 'my_number': 89}
+        efuraimuJS@ubuntu:~/AirBnB$ 
+        efuraimuJS@ubuntu:~/AirBnB$ cat file.json ; echo ""
+        {"BaseModel.e79e744a-55d4-45a3-b74a-ca5fae74e0e2": {"__class__": "BaseModel", "id": "e79e744a-55d4-45a3-b74a-ca5fae74e0e2", "updated_at": "2017-09-28T21:08:06.151750", "created_at": "2017-09-28T21:08:06.151711", "name": "My_First_Model", "my_number": 89}, "BaseModel.080cce84-c574-4230-b82a-9acb74ad5e8c": {"__class__": "BaseModel", "id": "080cce84-c574-4230-b82a-9acb74ad5e8c", "updated_at": "2017-09-28T21:07:51.973308", "created_at": "2017-09-28T21:07:51.973301", "name": "My_First_Model", "my_number": 89}, "BaseModel.ee49c413-023a-4b49-bd28-f2936c95460d": {"__class__": "BaseModel", "id": "ee49c413-023a-4b49-bd28-f2936c95460d", "updated_at": "2017-09-28T21:07:25.047381", "created_at": "2017-09-28T21:07:25.047372", "name": "My_First_Model", "my_number": 89}}
+        efuraimuJS@ubuntu:~/AirBnB$ 
+        ```
 
 **Repo:**
 
