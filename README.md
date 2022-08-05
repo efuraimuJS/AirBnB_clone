@@ -43,19 +43,6 @@ Do you remember the Shell? It’s exactly the same but limited to a specific use
 *   Update attributes of an object
 *   Destroy an object
 
-Resources
----------
-
-**Read or watch**:BaseModel
-
-*   [cmd module](/rltoken/8ecCwE6veBmm3Nppw4hz5A "cmd module")
-*   **packages** concept page
-*   [uuid module](/rltoken/KfL9TqwdI69W6ttG6gTPPQ "uuid module")
-*   [datetime](/rltoken/1d8I3jSKgnYAtA1IZfEDpA "datetime")
-*   [unittest module](/rltoken/IlFiMB8UmqBG2CxA0AD3jA "unittest module")
-*   [args/kwargs](/rltoken/C_a0EKbtvKdMcwIAuSIZng "args/kwargs")
-*   [Python test cheatsheet](/rltoken/tgNVrKKzlWgS4dfl3mQklw "Python test cheatsheet")
-
 More Info
 ---------
 
