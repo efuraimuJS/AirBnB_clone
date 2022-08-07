@@ -73,30 +73,27 @@ class HBNBCommand(cmd.Cmd):
                     setattr(storage.all()[key], attribute, value)
                 storage.all()[key].save()
 
-    def do_quit(self, line):
-        """Exits the program."""
-        return True
-
     def do_EOF(self, line):
-        """Handles End Of File character."""
+        """Handles End Of File character.
+        """
         print()
         return True
 
-    def do_help(self, arg: str) -> bool | None:
-        return super().do_help(arg)
+    def do_quit(self, line):
+        """Exits the program.
+        """
+        return True
 
     def emptyline(self):
-        """Doesn't do anything on ENTER."""
+        """Doesn't do anything on ENTER.
+        """
         pass
 
     def do_create(self, line):
-        """Creates a new instance of BaseModel, saves it (to the JSON file) and prints the id.
-        Ex: $ create BaseModel
+        """Creates an instance.
         """
-
         if line == "" or line is None:
             print("** class name missing **")
-
         elif line not in storage.classes():
             print("** class doesn't exist **")
         else:
@@ -105,13 +102,12 @@ class HBNBCommand(cmd.Cmd):
             print(b.id)
 
     def do_show(self, line):
-        """Prints the string representation of an instance based on the class name and id.
-        Ex: $ show BaseModel 1234-1234-1234.
+        """Prints the string representation of an instance.
         """
         if line == "" or line is None:
             print("** class name missing **")
         else:
-            words = line.split(" ")
+            words = line.split(' ')
             if words[0] not in storage.classes():
                 print("** class doesn't exist **")
             elif len(words) < 2:
@@ -124,13 +120,12 @@ class HBNBCommand(cmd.Cmd):
                     print(storage.all()[key])
 
     def do_destroy(self, line):
-        """Deletes an instance based on the class name and id (save the change into the JSON file).
-        Ex: $ destroy BaseModel 1234-1234-1234.
+        """Deletes an instance based on the class name and id.
         """
         if line == "" or line is None:
             print("** class name missing **")
         else:
-            words = line.split(" ")
+            words = line.split(' ')
             if words[0] not in storage.classes():
                 print("** class doesn't exist **")
             elif len(words) < 2:
@@ -144,29 +139,37 @@ class HBNBCommand(cmd.Cmd):
                     storage.save()
 
     def do_all(self, line):
-        """Prints all string representation of all instances based or not on the class name.
-        Ex: $ all BaseModel or $ all.
+        """Prints all string representation of all instances.
         """
         if line != "":
-            words = line.split(" ")
+            words = line.split(' ')
             if words[0] not in storage.classes():
                 print("** class doesn't exist **")
             else:
-                l = [
-                    str(obj)
-                    for key, obj in storage.all().items()
-                    if type(obj).__name__ == words[0]
-                ]
+                l = [str(obj) for key, obj in storage.all().items()
+                     if type(obj).__name__ == words[0]]
                 print(l)
-
         else:
             l = [str(obj) for key, obj in storage.all().items()]
+            print(l)
+
+    def do_count(self, line):
+        """Counts the instances of a class.
+        """
+        words = line.split(' ')
+        if not words[0]:
+            print("** class name missing **")
+        elif words[0] not in storage.classes():
+            print("** class doesn't exist **")
+        else:
+            matches = [
+                k for k in storage.all() if k.startswith(
+                    words[0] + '.')]
+            print(len(matches))
 
     def do_update(self, line):
-        """Updates an instance based on the class name and id by adding or updating attribute (save the change into the JSON file).
-        Ex: $ update BaseModel 1234-1234-1234 email "aibnb@mail.com".
+        """Updates an instance by adding or updating attribute.
         """
-
         if line == "" or line is None:
             print("** class name missing **")
             return
@@ -177,7 +180,6 @@ class HBNBCommand(cmd.Cmd):
         uid = match.group(2)
         attribute = match.group(3)
         value = match.group(4)
-
         if not match:
             print("** class name missing **")
         elif classname not in storage.classes():
@@ -195,12 +197,12 @@ class HBNBCommand(cmd.Cmd):
             else:
                 cast = None
                 if not re.search('^".*"$', value):
-                    if "." in value:
+                    if '.' in value:
                         cast = float
                     else:
                         cast = int
                 else:
-                    value = value.replace('"', "")
+                    value = value.replace('"', '')
                 attributes = storage.attributes()[classname]
                 if attribute in attributes:
                     value = attributes[attribute](value)
@@ -212,21 +214,6 @@ class HBNBCommand(cmd.Cmd):
                 setattr(storage.all()[key], attribute, value)
                 storage.all()[key].save()
 
-    def do_count(self, line):
-        """Counts the instances of a class.
-        """
-        words = line.split(' ')
-        if not words[0]:
-            print("** class name missing **")
-        elif words[0] not in storage.classes():
-            print("** class doesn't exist **")
-        else:
-            matches = [
-                k for k in storage.all() if k.startswith(words[0] + '.')
-            ]
 
-            print(len(matches))
-
-
-if __name__ == "__main__":
+if __name__ == '__main__':
     HBNBCommand().cmdloop()

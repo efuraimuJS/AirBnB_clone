@@ -14,6 +14,7 @@ import uuid
 
 
 class TestBaseModel(unittest.TestCase):
+
     """Test Cases for the BaseModel class."""
 
     def setUp(self):
@@ -126,15 +127,13 @@ class TestBaseModel(unittest.TestCase):
         msg = "to_dict() missing 1 required positional argument: 'self'"
         self.assertEqual(str(e.exception), msg)
 
-    def test_4_instantiation(self):
-        """Tests instantiation with **kwargs."""
-
-        my_model = BaseModel()
-        my_model.name = "Holberton"
-        my_model.my_number = 89
-        my_model_json = my_model.to_dict()
-        my_new_model = BaseModel(**my_model_json)
-        self.assertEqual(my_new_model.to_dict(), my_model.to_dict())
+    def test_3_to_dict_excess_args(self):
+        """Tests to_dict() with too many arguments."""
+        self.resetStorage()
+        with self.assertRaises(TypeError) as e:
+            BaseModel.to_dict(self, 98)
+        msg = "to_dict() takes 1 positional argument but 2 were given"
+        self.assertEqual(str(e.exception), msg)
 
     def test_4_instantiation(self):
         """Tests instantiation with **kwargs."""
