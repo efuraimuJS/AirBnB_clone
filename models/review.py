@@ -1,11 +1,16 @@
 #!/usr/bin/python3
-"""Module for Review class."""
+"""module of 'Review' class"""
 
 from models.base_model import BaseModel
 
 
 class Review(BaseModel):
-    """Class representing a Review."""
+    """class 'Review' that inherits from BaseModel"""
+
     place_id = ""
     user_id = ""
     text = ""
+
+    def __init__(self, *args, **kwargs):
+        """class constructor"""
+        super().__init__(*args, **kwargs)

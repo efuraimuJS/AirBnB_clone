@@ -1,52 +1,35 @@
 #!/usr/bin/python3
-"""Unittest module for the User Class."""
+"""test module for class User"""
 
+import models
+import datetime
 import unittest
-from datetime import datetime
-import time
-from models.user import User
-import re
-import json
-from models.engine.file_storage import FileStorage
-import os
-from models import storage
-from models.base_model import BaseModel
 
 
-class TestUser(unittest.TestCase):
+class UserTest(unittest.TestCase):
+    """tests the class User"""
 
-    """Test Cases for the User class."""
+    def test_documentation(self):
+        """tests module and class docstring"""
+        self.assertIsNotNone(models.user.__doc__)
+        self.assertIsNotNone(models.user.User.__doc__)
 
-    def setUp(self):
-        """Sets up test methods."""
-        pass
+    def test_class(self):
+        """test instance class"""
+        instance = models.user.User()
+        self.assertIsInstance(instance, models.user.User)
 
-    def tearDown(self):
-        """Tears down test methods."""
-        self.resetStorage()
-        pass
+    def test_type(self):
+        """test type of instance atributes"""
+        instance = models.user.User()
+        self.assertIsInstance(instance.id, str)
+        self.assertIsInstance(instance.created_at, datetime.datetime)
+        self.assertIsInstance(instance.updated_at, datetime.datetime)
+        self.assertIsInstance(instance.email, str)
+        self.assertIsInstance(instance.password, str)
+        self.assertIsInstance(instance.first_name, str)
+        self.assertIsInstance(instance.last_name, str)
 
-    def resetStorage(self):
-        """Resets FileStorage data."""
-        FileStorage._FileStorage__objects = {}
-        if os.path.isfile(FileStorage._FileStorage__file_path):
-            os.remove(FileStorage._FileStorage__file_path)
-
-    def test_8_instantiation(self):
-        """Tests instantiation of User class."""
-
-        b = User()
-        self.assertEqual(str(type(b)), "<class 'models.user.User'>")
-        self.assertIsInstance(b, User)
-        self.assertTrue(issubclass(type(b), BaseModel))
-
-    def test_8_attributes(self):
-        """Tests the attributes of User class."""
-        attributes = storage.attributes()["User"]
-        o = User()
-        for k, v in attributes.items():
-            self.assertTrue(hasattr(o, k))
-            self.assertEqual(type(getattr(o, k, None)), v)
 
 if __name__ == "__main__":
     unittest.main()

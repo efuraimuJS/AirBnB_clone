@@ -1,52 +1,32 @@
 #!/usr/bin/python3
-"""Unittest module for the State Class."""
+"""test module for class State"""
 
+import models
+import datetime
 import unittest
-from datetime import datetime
-import time
-from models.state import State
-import re
-import json
-from models.engine.file_storage import FileStorage
-import os
-from models import storage
-from models.base_model import BaseModel
 
 
-class TestState(unittest.TestCase):
+class StateTest(unittest.TestCase):
+    """tests the class State"""
 
-    """Test Cases for the State class."""
+    def test_documentation(self):
+        """tests module and class docstring"""
+        self.assertIsNotNone(models.state.__doc__)
+        self.assertIsNotNone(models.state.State.__doc__)
 
-    def setUp(self):
-        """Sets up test methods."""
-        pass
+    def test_class(self):
+        """test instance class"""
+        instance = models.state.State()
+        self.assertIsInstance(instance, models.state.State)
 
-    def tearDown(self):
-        """Tears down test methods."""
-        self.resetStorage()
-        pass
+    def test_type(self):
+        """test type of instance atributes"""
+        instance = models.state.State()
+        self.assertIsInstance(instance.id, str)
+        self.assertIsInstance(instance.created_at, datetime.datetime)
+        self.assertIsInstance(instance.updated_at, datetime.datetime)
+        self.assertIsInstance(instance.name, str)
 
-    def resetStorage(self):
-        """Resets FileStorage data."""
-        FileStorage._FileStorage__objects = {}
-        if os.path.isfile(FileStorage._FileStorage__file_path):
-            os.remove(FileStorage._FileStorage__file_path)
-
-    def test_8_instantiation(self):
-        """Tests instantiation of State class."""
-
-        b = State()
-        self.assertEqual(str(type(b)), "<class 'models.state.State'>")
-        self.assertIsInstance(b, State)
-        self.assertTrue(issubclass(type(b), BaseModel))
-
-    def test_8_attributes(self):
-        """Tests the attributes of State class."""
-        attributes = storage.attributes()["State"]
-        o = State()
-        for k, v in attributes.items():
-            self.assertTrue(hasattr(o, k))
-            self.assertEqual(type(getattr(o, k, None)), v)
 
 if __name__ == "__main__":
     unittest.main()

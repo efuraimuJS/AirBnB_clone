@@ -1,52 +1,33 @@
 #!/usr/bin/python3
-"""Unittest module for the City Class."""
+"""test module for class City"""
 
+import models
+import datetime
 import unittest
-from datetime import datetime
-import time
-from models.city import City
-import re
-import json
-from models.engine.file_storage import FileStorage
-import os
-from models import storage
-from models.base_model import BaseModel
 
 
-class TestCity(unittest.TestCase):
+class CityTest(unittest.TestCase):
+    """tests the class City"""
 
-    """Test Cases for the City class."""
+    def test_documentation(self):
+        """tests module and class docstring"""
+        self.assertIsNotNone(models.city.__doc__)
+        self.assertIsNotNone(models.city.City.__doc__)
 
-    def setUp(self):
-        """Sets up test methods."""
-        pass
+    def test_class(self):
+        """test instance class"""
+        instance = models.city.City()
+        self.assertIsInstance(instance, models.city.City)
 
-    def tearDown(self):
-        """Tears down test methods."""
-        self.resetStorage()
-        pass
+    def test_type(self):
+        """test type of instance atributes"""
+        instance = models.city.City()
+        self.assertIsInstance(instance.id, str)
+        self.assertIsInstance(instance.created_at, datetime.datetime)
+        self.assertIsInstance(instance.updated_at, datetime.datetime)
+        self.assertIsInstance(instance.state_id, str)
+        self.assertIsInstance(instance.name, str)
 
-    def resetStorage(self):
-        """Resets FileStorage data."""
-        FileStorage._FileStorage__objects = {}
-        if os.path.isfile(FileStorage._FileStorage__file_path):
-            os.remove(FileStorage._FileStorage__file_path)
-
-    def test_8_instantiation(self):
-        """Tests instantiation of City class."""
-
-        b = City()
-        self.assertEqual(str(type(b)), "<class 'models.city.City'>")
-        self.assertIsInstance(b, City)
-        self.assertTrue(issubclass(type(b), BaseModel))
-
-    def test_8_attributes(self):
-        """Tests the attributes of City class."""
-        attributes = storage.attributes()["City"]
-        o = City()
-        for k, v in attributes.items():
-            self.assertTrue(hasattr(o, k))
-            self.assertEqual(type(getattr(o, k, None)), v)
 
 if __name__ == "__main__":
     unittest.main()
